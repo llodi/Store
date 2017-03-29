@@ -20,6 +20,7 @@
 - (void)getOrderItems: (void(^) (NSArray *))success failHundler: (void(^) (NSString *))fail ;
 
 - (void)addOrUpdateOrderItem: (OrderItem *)item;
+- (void)changeOrderItemQuantity: (OrderItem *)orderItem;
 
 - (void)removeOrderItem: (OrderItem *)item;
 

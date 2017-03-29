@@ -30,5 +30,7 @@
 
 - (IBAction)okAction:(UIButton *)sender;
 
+- (void) setCurrentValueFrom: (double) value ;
+
 
 @end

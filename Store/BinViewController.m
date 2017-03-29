@@ -11,12 +11,15 @@
 #import "OrderPositionCell.h"
 #import "ItemManager.h"
 #import "NSString+formatter.h"
+#import "ItemsQuantityController.h"
+#import "TransitorHelper.h"
 
 
-@interface BinViewController () <UITableViewDataSource, UITableViewDelegate>
+@interface BinViewController () <UITableViewDataSource, UITableViewDelegate, ItemsQuantity>
 
 @property (strong, nonatomic) UIRefreshControl *refreshControl;
 @property (weak, nonatomic) IBOutlet UIView *headerView;
+@property (nonatomic) TransitorHelper *transitor;
 
 @end
 
@@ -24,6 +27,8 @@
 
 NSString *const OrderPositionCellId = @"OrderPositionCellId";
 NSString *const ShowItemDetails = @"ShowItemDetails2";
+NSString *const ShowItemsQuantityControllerSegue2 =  @"ShowItemsQuantityController2";
+
 
 #pragma mark - Life circle
 
@@ -53,7 +58,6 @@ NSString *const ShowItemDetails = @"ShowItemDetails2";
 - (IBAction)emptyOrderAction:(UIBarButtonItem *)sender {
     [[OrderManager sharedManager] emptyOrder];
     [self updateLabels];
-    [self.tableView reloadData];
 }
 
 
@@ -70,8 +74,14 @@ NSString *const ShowItemDetails = @"ShowItemDetails2";
 }
 
 - (void)updateLabels {
+    [self.tableView reloadData];
     self.positionsQuqntityLabel.text = [NSString formateInt:self.orderItems.count];
     self.totalPriceLabel.text = [NSString formateDouble:[[OrderManager sharedManager] totalPrice]];
+}
+
+- (TransitorHelper *)transitor {
+    if(!_transitor) _transitor = [[TransitorHelper alloc] init];
+    return _transitor;
 }
 
 #pragma mark - handlers
@@ -145,11 +155,28 @@ NSString *const ShowItemDetails = @"ShowItemDetails2";
     UITableViewRowAction *delete = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDefault title:@"Удалить" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         __strong typeof(weakSelf) strongSelf = weakSelf;
         [[OrderManager sharedManager] removeOrderItem:self.orderItems[indexPath.item]];
-        [strongSelf.tableView reloadData];
-        [self updateLabels];
+        [strongSelf updateLabels];
+        delete.backgroundColor = [UIColor redColor];
     }];
-    return @[delete];
+    UITableViewRowAction *change = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"Изменить" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        __strong typeof(weakSelf) strongSelf = weakSelf;
+        OrderItem *item = (OrderItem *) strongSelf.orderItems[indexPath.item];
+        change.backgroundColor = [UIColor grayColor];
+        if (item) {
+            [strongSelf performSegueWithIdentifier:ShowItemsQuantityControllerSegue2 sender:item];
+            [strongSelf updateLabels];
+        }
+    }];
+    return @[delete,change];
 }
+
+#pragma mark - ItemsQuantity
+
+- (void) getOrderItem:(OrderItem *)orderItem {
+    [[OrderManager sharedManager] changeOrderItemQuantity:orderItem];
+    [self updateLabels];
+}
+
 
 
 #pragma mark - Navigation
@@ -163,6 +190,19 @@ NSString *const ShowItemDetails = @"ShowItemDetails2";
             if (cell) {
                 pvc.articul = cell.orderItem.articul;
             }
+        }
+    } else if ([segue.identifier isEqualToString:ShowItemsQuantityControllerSegue2]) {
+        ItemsQuantityController *qvc = (ItemsQuantityController *) segue.destinationViewController;
+        if (qvc) {
+            OrderItem *item = (OrderItem *)sender;
+            if(item) {
+                qvc.articul = item.articul;
+                qvc.delegate = self;
+            }
+            [qvc setCurrentValueFrom:item.quantity];
+            qvc.modalPresentationStyle = UIModalPresentationCustom;
+            self.transitor.options = UICustomTransitionCentrallyOptions;
+            qvc.transitioningDelegate = self.transitor;
         }
     }
 }

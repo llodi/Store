@@ -29,7 +29,7 @@
 - (void) setCurrentValue:(double)currentValue {
     _currentValue = currentValue;
     self.quantityLabel.text = [NSString stringWithFormat:@"%.0f",_currentValue];
-    //[self.delegate getQuantity:(NSInteger)_currentValue forItem:self.item];
+    //[self.delegate getQx§uantity:(NSInteger)_currentValue forItem:self.item];
 }
 
 - (void)viewDidDisappear:(BOOL)animated {
@@ -38,7 +38,10 @@
 
 - (void) viewDidLoad {
     [super viewDidLoad];
-    self.currentValue = self.stepperOutlet.value;
+    
+    self.quantityLabel.text = [NSString stringWithFormat:@"%.0f",self.currentValue];
+    self.stepperOutlet.value = self.currentValue;
+    
     self.view.layer.cornerRadius = 15;
     self.view.layer.masksToBounds = YES;
 }
@@ -50,5 +53,11 @@
 - (IBAction)stepperAction:(UIStepper *)sender {
         self.currentValue = sender.value;
 }
+
+- (void) setCurrentValueFrom: (double) value {
+    self.currentValue = value;
+    self.stepperOutlet.value = value;
+}
+
 
 @end

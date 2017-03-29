@@ -71,6 +71,20 @@
     }
 }
 
+- (void)changeOrderItemQuantity: (OrderItem *)orderItem {
+    
+    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"articul == %lo", orderItem.articul];
+    NSArray *filteredArray = [self.orderItems filteredArrayUsingPredicate:predicate];
+    
+    if (filteredArray.count == 0) return;
+    for (OrderItem *oItem in filteredArray) {
+        NSInteger i = [self.orderItems indexOfObject:oItem];
+        oItem.quantity = orderItem.quantity;
+        [self.orderItems replaceObjectAtIndex:i withObject:oItem];
+        [[RMDataManager sharedManager] writeOrUpdateOrderItem:orderItem];
+    }
+}
+
 - (void)emptyOrder {
     [self.orderItems removeAllObjects];
     [[RMDataManager sharedManager] removeAllRMOrderItems];

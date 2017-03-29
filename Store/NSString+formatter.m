@@ -25,4 +25,11 @@
 + (NSString *) formateInt: (NSInteger) _int {
     return [self stringWithFormat:@"%ld", _int];
 }
+
+//+ (double) getDouble: (double) double_ {
+//    NSNumberFormatter *numberFormat = [[NSNumberFormatter alloc] init];
+//    
+//    NSNumber *doubleNumber = [NSNumber numberWithDouble:_double];
+//}
+
 @end

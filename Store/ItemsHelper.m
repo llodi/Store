@@ -33,7 +33,7 @@
     self = [super init];
     
     if(self) {
-        //[self bildItemsArray];
+        [self bildItemsArray];
     }
     return self;
 }
