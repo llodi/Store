@@ -15,6 +15,14 @@ typedef NS_ENUM(NSUInteger, UICustomTransitionOptions) {
 
 @interface CustomSizeModalController : UIPresentationController
 
-- (instancetype) initWithPresentedViewController:(UIViewController *)presentedViewController presentingViewController:(UIViewController *)presentingViewController options:(UICustomTransitionOptions)options;
+@property (nonatomic) CGFloat horizontalInsets;
+@property (nonatomic) CGFloat viewHeight;
+
+
+- (instancetype) initWithPresentedViewController:(UIViewController *)presentedViewController
+                        presentingViewController:(UIViewController *)presentingViewController
+                                         options:(UICustomTransitionOptions)options
+                            withHorizontalInsets: (CGFloat) insets
+                                      viewHeight: (CGFloat) height;
 
 @end

@@ -80,10 +80,11 @@ NSString *const ShowItemsQuantityControllerSegue2 =  @"ShowItemsQuantityControll
 }
 
 - (TransitorHelper *)transitor {
-    if(!_transitor) _transitor = [[TransitorHelper alloc] init];
+    if(!_transitor) _transitor = [[TransitorHelper alloc] initWithOptions: UICustomTransitionCentrallyOptions
+                                                         horizontalInsets:10.0
+                                                               hiewHeight:160.0];
     return _transitor;
 }
-
 #pragma mark - handlers
 
 - (void)handleUpdateOrder: (UIRefreshControl *)refreshControl {
@@ -201,7 +202,6 @@ NSString *const ShowItemsQuantityControllerSegue2 =  @"ShowItemsQuantityControll
             }
             [qvc setCurrentValueFrom:item.quantity];
             qvc.modalPresentationStyle = UIModalPresentationCustom;
-            self.transitor.options = UICustomTransitionCentrallyOptions;
             qvc.transitioningDelegate = self.transitor;
         }
     }

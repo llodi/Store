@@ -8,8 +8,41 @@
 
 #import "TransitorHelper.h"
 
+@interface TransitorHelper ()
+
+@property (nonatomic) BOOL isPresenting;
+
+@property (nonatomic) UICustomTransitionOptions options;
+@property (nonatomic) CGFloat horizontalInsets;
+@property (nonatomic) CGFloat viewHeight;
+
+@end
+
 @implementation TransitorHelper
 
+
+- (instancetype)init {
+    self = [super init];
+    if (self) {
+        self.options = UICustomTransitionFromBottomOptions;
+        self.horizontalInsets = 10;
+        self.viewHeight = 160;
+    }
+    return self;
+}
+
+- (instancetype) initWithOptions: (UICustomTransitionOptions) options
+                horizontalInsets: (CGFloat) insets
+                      hiewHeight: (CGFloat) height
+{
+    self = [super init];
+    if(self) {
+        self.options = options;
+        self.horizontalInsets = insets;
+        self.viewHeight = height;
+    }
+    return self;
+}
 
 #pragma mark - UIViewControllerAnimatedTransitioning
 
@@ -29,7 +62,7 @@
     CGRect presentedFrame = [transitionContext finalFrameForViewController:controller];
     CGRect dismissedFrame = presentedFrame;
     
-    dismissedFrame.origin.y = transitionContext.containerView.frame.size.height + 20;
+    dismissedFrame.origin.y = transitionContext.containerView.frame.size.height + self.horizontalInsets;
     
     CGRect initialFrame = self.isPresenting ? dismissedFrame : presentedFrame;
     CGRect finalFrame = self.isPresenting ? presentedFrame : dismissedFrame;
@@ -63,7 +96,6 @@
                 break;
         }
         
-        //controller.view.frame = finalFrame;
         controller.view.transform = CGAffineTransformIdentity;
     } completion:^(BOOL finished) {
         [transitionContext completeTransition:finished];
@@ -78,7 +110,12 @@
                                                           sourceViewController:(UIViewController *)source
 {
     self.isPresenting = YES;
-    CustomSizeModalController *customVC = [[CustomSizeModalController alloc] initWithPresentedViewController:presented presentingViewController:presenting options:self.options];
+    CustomSizeModalController *customVC = [[CustomSizeModalController alloc]
+                                           initWithPresentedViewController:presented
+                                           presentingViewController:presenting
+                                           options:self.options
+                                           withHorizontalInsets:self.horizontalInsets
+                                           viewHeight:self.viewHeight];
     return customVC;
 }
 

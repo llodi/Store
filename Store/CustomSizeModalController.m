@@ -17,13 +17,21 @@
 
 @implementation CustomSizeModalController
 
-- (instancetype) initWithPresentedViewController:(UIViewController *)presentedViewController presentingViewController:(UIViewController *)presentingViewController options:(UICustomTransitionOptions)options
+
+- (instancetype) initWithPresentedViewController:(UIViewController *)presentedViewController
+                        presentingViewController:(UIViewController *)presentingViewController
+                                         options:(UICustomTransitionOptions)options
+                            withHorizontalInsets: (CGFloat) insets
+                                      viewHeight: (CGFloat) height
 {
     
     self = [super initWithPresentedViewController:presentedViewController presentingViewController:presentingViewController];
     if(self) {
         self.options = options;
         [self setupDimmingView];
+        self.horizontalInsets = insets;
+        self.viewHeight = height;
+        
     }
     return self;
 }
@@ -40,18 +48,19 @@
     CGFloat y = 0;
     switch (self.options) {
         case UICustomTransitionCentrallyOptions:
-            frameHeight = 160;//height * 0.25;
+            frameHeight = self.viewHeight;
             y = height / 2 - (frameHeight / 2);
             break;
         case UICustomTransitionFromBottomOptions:
-            frameHeight = height * 0.25;
-            y = height * 0.75;
+            frameHeight = self.viewHeight;
+            y = height - self.viewHeight - self.horizontalInsets;
+            break;
         default:
             return self.containerView.bounds;
             break;
     }
     
-    return  CGRectMake(10, y - 10, width - 10 - 10, frameHeight);
+    return CGRectMake(self.horizontalInsets, y, width - (self.horizontalInsets * 2), frameHeight);
 }
 
 - (void)presentationTransitionWillBegin {

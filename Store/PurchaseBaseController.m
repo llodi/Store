@@ -39,7 +39,9 @@ NSString *const ShowItemsQuantityControllerSegue =  @"ShowItemsQuantityControlle
 #pragma mark - properties getters/setters
 
 - (TransitorHelper *)transitor {
-    if(!_transitor) _transitor = [[TransitorHelper alloc] init];
+    if(!_transitor) _transitor = [[TransitorHelper alloc] initWithOptions: UICustomTransitionCentrallyOptions
+                                                         horizontalInsets:10.0
+                                                               hiewHeight:160];
     return _transitor;
 }
 
@@ -219,7 +221,6 @@ NSString *const ShowItemsQuantityControllerSegue =  @"ShowItemsQuantityControlle
                 qvc.delegate = self;
             }
             qvc.modalPresentationStyle = UIModalPresentationCustom;
-            self.transitor.options = UICustomTransitionCentrallyOptions;
             qvc.transitioningDelegate = self.transitor;
         }
     } else if([segue.identifier isEqualToString:ShowItemDetailsSegue]) {

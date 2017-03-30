@@ -12,9 +12,9 @@
 
 @interface TransitorHelper : NSObject <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
-
-@property (nonatomic) BOOL isPresenting;
-
-@property (nonatomic) UICustomTransitionOptions options;
+- (instancetype) init;
+- (instancetype) initWithOptions: (UICustomTransitionOptions) options
+             horizontalInsets: (CGFloat) insets
+                   hiewHeight: (CGFloat) height;
 
 @end
