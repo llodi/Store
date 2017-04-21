@@ -7,13 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "CustomSizeModalBaseController.h"
 
-typedef NS_ENUM(NSUInteger, UICustomTransitionOptions) {
-    UICustomTransitionFromBottomOptions,
-    UICustomTransitionCentrallyOptions
-};
 
-@interface CustomSizeModalController : UIPresentationController
+@interface CustomSizeModalController : CustomSizeModalBaseController
 
 @property (nonatomic) CGFloat horizontalInsets;
 @property (nonatomic) CGFloat viewHeight;
@@ -21,7 +18,7 @@ typedef NS_ENUM(NSUInteger, UICustomTransitionOptions) {
 
 - (instancetype) initWithPresentedViewController:(UIViewController *)presentedViewController
                         presentingViewController:(UIViewController *)presentingViewController
-                                         options:(UICustomTransitionOptions)options
+                                         option:(UICustomTransitionOption)option
                             withHorizontalInsets: (CGFloat) insets
                                       viewHeight: (CGFloat) height;
 

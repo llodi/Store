@@ -10,8 +10,7 @@
 
 @interface CustomSizeModalController()
 
-@property (nonatomic) UIView *dimmingView;
-@property (nonatomic) UICustomTransitionOptions options;
+@property (nonatomic) UICustomTransitionOption option;
 
 @end
 
@@ -20,15 +19,14 @@
 
 - (instancetype) initWithPresentedViewController:(UIViewController *)presentedViewController
                         presentingViewController:(UIViewController *)presentingViewController
-                                         options:(UICustomTransitionOptions)options
+                                         option:(UICustomTransitionOption)option
                             withHorizontalInsets: (CGFloat) insets
                                       viewHeight: (CGFloat) height
 {
     
     self = [super initWithPresentedViewController:presentedViewController presentingViewController:presentingViewController];
     if(self) {
-        self.options = options;
-        [self setupDimmingView];
+        self.option = option;
         self.horizontalInsets = insets;
         self.viewHeight = height;
         
@@ -44,14 +42,18 @@
     
     if (!height) return CGRectZero;
     if (!width) return CGRectZero;
+    
     CGFloat frameHeight = height;
     CGFloat y = 0;
-    switch (self.options) {
-        case UICustomTransitionCentrallyOptions:
+
+    switch (self.option) {
+        case UICustomTransitionCentrallyOption:
+            width = width - (self.horizontalInsets * 2);
             frameHeight = self.viewHeight;
-            y = height / 2 - (frameHeight / 2);
+            y = height / 2 - (self.viewHeight / 2);
             break;
-        case UICustomTransitionFromBottomOptions:
+        case UICustomTransitionFromBottomOption:
+            width = width - (self.horizontalInsets * 2);
             frameHeight = self.viewHeight;
             y = height - self.viewHeight - self.horizontalInsets;
             break;
@@ -60,57 +62,8 @@
             break;
     }
     
-    return CGRectMake(self.horizontalInsets, y, width - (self.horizontalInsets * 2), frameHeight);
+    return CGRectMake(self.horizontalInsets, y, width, frameHeight);
 }
 
-- (void)presentationTransitionWillBegin {
-    
-    UIView *containerView = self.containerView;
-    
-    UIViewController *presentedViewController = self.presentedViewController;
-    
-    [self.dimmingView setFrame:containerView.bounds];
-    self.dimmingView.alpha = 0.0;
-    
-    [self.containerView addSubview:self.dimmingView];//insertSubview:self.dimmingView atIndex:0];
-
-    [presentedViewController.transitionCoordinator
-     animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context)
-    {
-        [self.dimmingView setAlpha:0.85];
-    } completion:nil];
-}
-
-- (void) dismissalTransitionWillBegin {
-    [self.presentedViewController.transitionCoordinator animateAlongsideTransition:^(id<UIViewControllerTransitionCoordinatorContext>  _Nonnull context)
-     {
-         [self.dimmingView setAlpha:0.0];
-     } completion:nil];
-}
-
-- (void)containerViewWillLayoutSubviews {
-    [self.dimmingView setFrame:self.containerView.bounds];
-    [self.presentedView setFrame:self.frameOfPresentedViewInContainerView];
-}
-
-#pragma mark - setup dimming view
-
-- (UIView *)dimmingView {
-    if(!_dimmingView) _dimmingView = [[UIView alloc] init];
-    return _dimmingView;
-}
-
-- (void) setupDimmingView {
-    self.dimmingView.translatesAutoresizingMaskIntoConstraints = NO;
-    self.dimmingView.backgroundColor = [UIColor blackColor];
-    self.dimmingView.alpha = 0.85;
-    
-    UITapGestureRecognizer *recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(handleTap:)];
-    [self.dimmingView addGestureRecognizer:recognizer];
-}
-
-- (void) handleTap: (UITapGestureRecognizer *) recognizer {
-    [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
-}
 
 @end

@@ -12,8 +12,7 @@
 
 @interface TransitorHelper : NSObject <UIViewControllerTransitioningDelegate, UIViewControllerAnimatedTransitioning>
 
-- (instancetype) init;
-- (instancetype) initWithOptions: (UICustomTransitionOptions) options
+- (instancetype) initWithOption: (UICustomTransitionOption) option
              horizontalInsets: (CGFloat) insets
                    hiewHeight: (CGFloat) height;
 

@@ -80,7 +80,7 @@ NSString *const ShowItemsQuantityControllerSegue2 =  @"ShowItemsQuantityControll
 }
 
 - (TransitorHelper *)transitor {
-    if(!_transitor) _transitor = [[TransitorHelper alloc] initWithOptions: UICustomTransitionCentrallyOptions
+    if(!_transitor) _transitor = [[TransitorHelper alloc] initWithOption: UICustomTransitionCentrallyOption
                                                          horizontalInsets:10.0
                                                                hiewHeight:160.0];
     return _transitor;

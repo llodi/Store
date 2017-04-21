@@ -12,7 +12,7 @@
 
 @property (nonatomic) BOOL isPresenting;
 
-@property (nonatomic) UICustomTransitionOptions options;
+@property (nonatomic) UICustomTransitionOption option;
 @property (nonatomic) CGFloat horizontalInsets;
 @property (nonatomic) CGFloat viewHeight;
 
@@ -20,24 +20,13 @@
 
 @implementation TransitorHelper
 
-
-- (instancetype)init {
-    self = [super init];
-    if (self) {
-        self.options = UICustomTransitionFromBottomOptions;
-        self.horizontalInsets = 10;
-        self.viewHeight = 160;
-    }
-    return self;
-}
-
-- (instancetype) initWithOptions: (UICustomTransitionOptions) options
+- (instancetype) initWithOption: (UICustomTransitionOption) option
                 horizontalInsets: (CGFloat) insets
                       hiewHeight: (CGFloat) height
 {
     self = [super init];
     if(self) {
-        self.options = options;
+        self.option = option;
         self.horizontalInsets = insets;
         self.viewHeight = height;
     }
@@ -69,12 +58,12 @@
     
     NSTimeInterval animationDuration = [self transitionDuration:transitionContext];
     
-    switch (self.options) {
-        case UICustomTransitionCentrallyOptions:
+    switch (self.option) {
+        case UICustomTransitionCentrallyOption:
             controller.view.frame = finalFrame;//initialFrame;
             controller.view.transform = CGAffineTransformMakeScale(0, 0);
             break;
-        case UICustomTransitionFromBottomOptions:
+        case UICustomTransitionFromBottomOption:
             controller.view.frame = initialFrame;
             break;
         default:
@@ -84,11 +73,11 @@
     
     [UIView animateKeyframesWithDuration:animationDuration delay:0 options:0 animations:^{
         
-        switch (self.options) {
-            case UICustomTransitionCentrallyOptions:
+        switch (self.option) {
+            case UICustomTransitionCentrallyOption:
                 controller.view.transform = CGAffineTransformIdentity;
                 break;
-            case UICustomTransitionFromBottomOptions:
+            case UICustomTransitionFromBottomOption:
                 controller.view.frame = finalFrame;
                 break;
             default:
@@ -113,7 +102,7 @@
     CustomSizeModalController *customVC = [[CustomSizeModalController alloc]
                                            initWithPresentedViewController:presented
                                            presentingViewController:presenting
-                                           options:self.options
+                                           option:self.option
                                            withHorizontalInsets:self.horizontalInsets
                                            viewHeight:self.viewHeight];
     return customVC;

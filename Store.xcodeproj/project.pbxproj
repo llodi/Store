@@ -22,6 +22,7 @@
 		53651F8B1E85925100C02650 /* NSString+formatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 53651F8A1E85925100C02650 /* NSString+formatter.m */; };
 		538DCD451E85200E0031D1EF /* TransitorHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 538DCD441E85200E0031D1EF /* TransitorHelper.m */; };
 		538DCD481E854C200031D1EF /* OrderItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 538DCD471E854C200031D1EF /* OrderItem.m */; };
+		53A026071E8EC7370083C117 /* CustomSizeModalBaseController.m in Sources */ = {isa = PBXBuildFile; fileRef = 53A026061E8EC7370083C117 /* CustomSizeModalBaseController.m */; };
 		53B069321E87A25D0008D6AD /* ItemManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B069311E87A25D0008D6AD /* ItemManager.m */; };
 		53B069361E87B0AF0008D6AD /* RMDataManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B069351E87B0AF0008D6AD /* RMDataManager.m */; };
 		53B0693A1E87B8F10008D6AD /* RMItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 53B069391E87B8F10008D6AD /* RMItem.m */; };
@@ -63,6 +64,8 @@
 		538DCD441E85200E0031D1EF /* TransitorHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TransitorHelper.m; sourceTree = "<group>"; };
 		538DCD461E854C200031D1EF /* OrderItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OrderItem.h; sourceTree = "<group>"; };
 		538DCD471E854C200031D1EF /* OrderItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrderItem.m; sourceTree = "<group>"; };
+		53A026051E8EC7370083C117 /* CustomSizeModalBaseController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomSizeModalBaseController.h; sourceTree = "<group>"; };
+		53A026061E8EC7370083C117 /* CustomSizeModalBaseController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomSizeModalBaseController.m; sourceTree = "<group>"; };
 		53B069301E87A25D0008D6AD /* ItemManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ItemManager.h; sourceTree = "<group>"; };
 		53B069311E87A25D0008D6AD /* ItemManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ItemManager.m; sourceTree = "<group>"; };
 		53B069341E87B0AF0008D6AD /* RMDataManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RMDataManager.h; sourceTree = "<group>"; };
@@ -212,6 +215,8 @@
 				538DCD441E85200E0031D1EF /* TransitorHelper.m */,
 				53D44B1D1E86B08900626E93 /* CustomSizeModalController.h */,
 				53D44B1E1E86B08900626E93 /* CustomSizeModalController.m */,
+				53A026051E8EC7370083C117 /* CustomSizeModalBaseController.h */,
+				53A026061E8EC7370083C117 /* CustomSizeModalBaseController.m */,
 			);
 			name = "Custom Transitions";
 			sourceTree = "<group>";
@@ -391,6 +396,7 @@
 				53D44B1F1E86B08900626E93 /* CustomSizeModalController.m in Sources */,
 				5324B4AF1E82633A009F7A9E /* AppDelegate.m in Sources */,
 				53B0693A1E87B8F10008D6AD /* RMItem.m in Sources */,
+				53A026071E8EC7370083C117 /* CustomSizeModalBaseController.m in Sources */,
 				534DF27F1E850D9000D39980 /* ItemsQuantityController.m in Sources */,
 				53B069401E87D3680008D6AD /* RMDataManager+OrderManager.m in Sources */,
 				5324B4AC1E82633A009F7A9E /* main.m in Sources */,

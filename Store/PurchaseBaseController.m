@@ -39,8 +39,8 @@ NSString *const ShowItemsQuantityControllerSegue =  @"ShowItemsQuantityControlle
 #pragma mark - properties getters/setters
 
 - (TransitorHelper *)transitor {
-    if(!_transitor) _transitor = [[TransitorHelper alloc] initWithOptions: UICustomTransitionCentrallyOptions
-                                                         horizontalInsets:10.0
+    if(!_transitor) _transitor = [[TransitorHelper alloc] initWithOption: UICustomTransitionCentrallyOption
+                                                        horizontalInsets:10.0
                                                                hiewHeight:160];
     return _transitor;
 }
